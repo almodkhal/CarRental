@@ -32,19 +32,19 @@ $leatherseats=$_POST['leatherseats'];
 $id=intval($_GET['id']);
 
 
-$sqll ="SELECT * FROM tblvehicles WHERE VehiclesTitle=:vehicletitle and VehiclesBrand=:brand";
-$queryy= $dbh -> prepare($sqll);
-$queryy-> bindParam(':vehicletitle', $vehicletitle, PDO::PARAM_STR);
-$queryy-> bindParam(':brand', $brand, PDO::PARAM_STR);
-$queryy-> execute();
-$resultss=$queryy->fetchAll(PDO::FETCH_OBJ);
-if($queryy->rowCount() > 0)
-{
-	$error="Vehicle With this name and Brand already exist!";
+// $sqll ="SELECT * FROM tblvehicles WHERE VehiclesTitle=:vehicletitle and VehiclesBrand=:brand";
+// $queryy= $dbh -> prepare($sqll);
+// $queryy-> bindParam(':vehicletitle', $vehicletitle, PDO::PARAM_STR);
+// $queryy-> bindParam(':brand', $brand, PDO::PARAM_STR);
+// $queryy-> execute();
+// $resultss=$queryy->fetchAll(PDO::FETCH_OBJ);
+// if($queryy->rowCount() > 0)
+// {
+// 	$error="Vehicle With this name and Brand already exist!";
 
-}
+// }
 
-else{
+// else{
 
 $sql="update tblvehicles set VehiclesTitle=:vehicletitle,VehiclesBrand=:brand,VehiclesOverview=:vehicleoverview,PricePerDay=:priceperday,FuelType=:fueltype,ModelYear=:modelyear,SeatingCapacity=:seatingcapacity,AirConditioner=:airconditioner,PowerDoorLocks=:powerdoorlocks,AntiLockBrakingSystem=:antilockbrakingsys,BrakeAssist=:brakeassist,PowerSteering=:powersteering,DriverAirbag=:driverairbag,PassengerAirbag=:passengerairbag,PowerWindows=:powerwindow,CDPlayer=:cdplayer,CentralLocking=:centrallocking,CrashSensor=:crashcensor,LeatherSeats=:leatherseats where id=:id ";
 $query = $dbh->prepare($sql);
@@ -73,7 +73,7 @@ $query->execute();
 $msg="Vehicle Data updated successfully";
 
 
-}
+
 	}
 
 	?>
