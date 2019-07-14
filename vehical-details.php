@@ -10,6 +10,20 @@ $message=$_POST['message'];
 $useremail=$_SESSION['login'];
 $status=0;
 $vhid=$_GET['vhid'];
+
+$sql ="SELECT VehicleId FROM tblbooking WHERE VehicleId=:vhid";
+$query= $dbh -> prepare($sql);
+$query-> bindParam(':vhid', $vhid, PDO::PARAM_STR);
+$query-> execute();
+$results = $query -> fetchAll(PDO::FETCH_OBJ);
+if($query -> rowCount() > 0)
+{
+  echo "<script>alert('This Car Has Already been Booked!, Please Kindly Book a different Car.');</script>";
+}
+else 
+{
+
+
 $sql="INSERT INTO  tblbooking(userEmail,VehicleId,FromDate,ToDate,message,Status) VALUES(:useremail,:vhid,:fromdate,:todate,:message,:status)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':useremail',$useremail,PDO::PARAM_STR);
@@ -30,7 +44,7 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
 }
 
 }
-
+}
 ?>
 
 
@@ -124,7 +138,7 @@ $_SESSION['brndid']=$result->bid;
       </div>
       <div class="col-md-3">
         <div class="price_info">
-          <p>$<?php echo htmlentities($result->PricePerDay);?> </p>Per Day
+          <p>N<?php echo htmlentities($result->PricePerDay);?> </p>Per Day
          
         </div>
       </div>
@@ -381,10 +395,9 @@ foreach($results as $result)
             </div>
             <div class="product-listing-content">
               <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h5>
-              <p class="list-price">$<?php echo htmlentities($result->PricePerDay);?></p>
+              <p class="list-price">N<?php echo htmlentities($result->PricePerDay);?></p>
           
               <ul class="features_list">
-                
              <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity);?> seats</li>
                 <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear);?> model</li>
                 <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->FuelType);?></li>
